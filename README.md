@@ -44,7 +44,7 @@ Rekorlar tarayıcıda (`localStorage`) saklanır.
 - Giriş ekranında logo + ortalanmış durum yazısı + bar bulunur. Bar dolar, ~%44'te **hata** verir (kırmızı, titreme, hata sesi), düzelir ve %100 olunca sayfa **tıklama gerektirmeden** kendiliğinden açılır. Süreler `script.js` içindeki `PHASES` dizisindedir.
 - Sesler Web Audio ile üretilir (harici dosya yok): bağlanma, tik, hata, düzelme, başarı, açılış, hover ve tık sesleri. Sağ üstteki 🔊 düğmesi sesi açar/kapatır (oyunlarla ortak ayar).
 - Tarayıcılar sayfaya ilk dokunuştan/tuşa basıştan önce sesi engeller. Bu yüzden sayfa ziyaretçi hiçbir şeye basmasa da açılır, ses ise ilk tuş/dokunuş/tıkla devreye girer.
-- Fare takibi: arka plandaki noktalar imlece çekilir ve çizgiyle bağlanır, imleci yumuşakça izleyen ışık halkası, kartın 3D eğilmesi, kart/butonlarda imleci izleyen parlama.
+- Fare takibi: arka plandaki noktalar imlece çekilir ve çizgiyle bağlanır, imleci yumuşakça izleyen ışık halkası, geniş kutunun (`.layout`) fareye göre 3D bükülmesi, kart/butonlarda imleci izleyen parlama.
 
 ## Bağlantılar ve rekor tablosu
 

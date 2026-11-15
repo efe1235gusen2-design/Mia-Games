@@ -208,7 +208,7 @@ function typeLoop() {
 }
 
 // Fare takibi: kart eğilir, ışık imleci izler, kartlarda spot ışığı gezer
-const card = $('card');
+const card = document.querySelector('.layout'); // ilk sürümdeki gibi: geniş kutu fareye göre bükülür
 const glow = $('cursor-glow');
 const mouse = { x: -9999, y: -9999, gx: 0, gy: 0, on: false };
 if (matchMedia('(hover: hover) and (pointer: fine)').matches) {
@@ -222,8 +222,8 @@ if (matchMedia('(hover: hover) and (pointer: fine)').matches) {
       el.style.setProperty('--mx', (e.clientX - r.left) + 'px');
       el.style.setProperty('--my', (e.clientY - r.top) + 'px');
     }
-    tx = (e.clientX / innerWidth - 0.5) * 8;
-    ty = -(e.clientY / innerHeight - 0.5) * 8;
+    tx = (e.clientX / innerWidth - 0.5) * 10;
+    ty = -(e.clientY / innerHeight - 0.5) * 10;
     if (tiltFrame) return;
     tiltFrame = requestAnimationFrame(() => {
       card.style.setProperty('--ry', tx.toFixed(2) + 'deg');
