@@ -56,28 +56,43 @@ const splashStatus = $('splash-status');
 const progress = $('loading-progress');
 const progressBar = document.querySelector('.loading-track');
 function setProgress(value) {
-  progress.style.width = value + '%';
-  progressBar.setAttribute('aria-valuenow', value);
+  const pct = Math.max(0, Math.min(100, value));
+  progress.style.transform = `scaleX(${pct / 100})`;
+  progressBar.setAttribute('aria-valuenow', Math.round(pct));
 }
-setTimeout(() => { setProgress(32); }, 700);
-setTimeout(() => {
-  splashStatus.textContent = 'Hata: Sunucu kahve molasında ☕';
-  splashStatus.classList.add('error');
-  setProgress(46);
-}, 1500);
-setTimeout(() => {
-  splashStatus.textContent = 'Sorun bulundu: Sunucuya kahve veriliyor...';
-  splashStatus.classList.remove('error');
-  splashStatus.classList.add('fixing');
-  setProgress(72);
-}, 2700);
-setTimeout(() => {
-  splashStatus.textContent = 'Tamamdır! Otomatik giriş yapılıyor 🚀';
-  splashStatus.classList.remove('fixing');
-  splashStatus.classList.add('success');
-  setProgress(100);
-}, 4000);
-setTimeout(enter, 5200);
+const loadStart = performance.now();
+const loadDuration = 5400;
+let showedFakeError = false, showedRetry = false;
+function loadingTick(now) {
+  const elapsed = now - loadStart;
+  if (elapsed < 2500) {
+    setProgress((elapsed / 2500) * 64);
+  } else if (elapsed < 3450) {
+    setProgress(64);
+    if (!showedFakeError) {
+      splashStatus.textContent = 'Hata: Sunucu kahve molasında ☕';
+      splashStatus.classList.add('error');
+      showedFakeError = true;
+    }
+  } else if (elapsed < loadDuration) {
+    setProgress(64 + ((elapsed - 3450) / (loadDuration - 3450)) * 36);
+    if (!showedRetry) {
+      splashStatus.textContent = 'Hata giderildi, otomatik bağlanılıyor...';
+      splashStatus.classList.remove('error');
+      splashStatus.classList.add('fixing');
+      showedRetry = true;
+    }
+  } else {
+    setProgress(100);
+    splashStatus.textContent = 'Bağlantı tamam! Sayfa açılıyor 🚀';
+    splashStatus.classList.remove('fixing');
+    splashStatus.classList.add('success');
+    setTimeout(enter, 350);
+    return;
+  }
+  requestAnimationFrame(loadingTick);
+}
+requestAnimationFrame(loadingTick);
 
 // Daktilo efekti
 let li = 0, ci = 0, del = false, started = false;
@@ -94,21 +109,16 @@ function typeLoop() {
   })();
 }
 
-// Fareyle hafif 3D eğilme (dokunmatikte kapalı)
+// İlk sürümdeki fare takip/eğilme animasyonu.
 const card = $('card');
-if (matchMedia('(hover: hover) and (pointer: fine)').matches) {
-  let targetX = 0, targetY = 0, tiltFrame = 0;
-  addEventListener('pointermove', e => {
-    targetX = (e.clientX / innerWidth - 0.5) * 8;
-    targetY = -(e.clientY / innerHeight - 0.5) * 8;
-    if (tiltFrame) return;
-    tiltFrame = requestAnimationFrame(() => {
-      card.style.setProperty('--ry', targetX.toFixed(2) + 'deg');
-      card.style.setProperty('--rx', targetY.toFixed(2) + 'deg');
-      tiltFrame = 0;
-    });
+if (matchMedia('(hover: hover)').matches) {
+  addEventListener('mousemove', e => {
+    const x = e.clientX / innerWidth - 0.5;
+    const y = e.clientY / innerHeight - 0.5;
+    card.style.setProperty('--ry', (x * 8).toFixed(2) + 'deg');
+    card.style.setProperty('--rx', (-y * 8).toFixed(2) + 'deg');
   });
-  addEventListener('pointerleave', () => {
+  addEventListener('mouseleave', () => {
     card.style.setProperty('--ry', '0deg');
     card.style.setProperty('--rx', '0deg');
   });

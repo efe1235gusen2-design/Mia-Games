@@ -28,8 +28,8 @@ body {
 /* Giriş ekranı */
 #splash {
   position: fixed; inset: 0; z-index: 10;
-  display: flex; flex-direction: column; align-items: center; justify-content: flex-end;
-  padding: 0 20px max(42px, 8vh);
+  display: flex; flex-direction: column; align-items: center; justify-content: center;
+  padding: 20px;
   border: 0;
   background: rgba(10, 6, 18, 0.55);
   backdrop-filter: blur(14px);
@@ -52,8 +52,9 @@ body {
 #splash span.fixing { color: #ffd479; }
 #splash span.success { color: #8fffc1; }
 .loading-dock { width: min(400px, 88vw); text-align: center; }
-.loading-track { height: 5px; overflow: hidden; border-radius: 999px; background: rgba(255,255,255,.12); box-shadow: 0 0 18px rgba(139,92,246,.2); }
-.loading-track i { display: block; width: 0; height: 100%; border-radius: inherit; background: linear-gradient(90deg, var(--pink), var(--violet), #37d9ff); box-shadow: 0 0 16px rgba(255,79,163,.7); transition: width .8s cubic-bezier(.2,.7,.2,1); }
+.loading-dock #splash-status { padding-bottom: 14px; }
+.loading-track { height: 6px; overflow: hidden; border-radius: 999px; background: rgba(255,255,255,.12); box-shadow: 0 0 18px rgba(139,92,246,.2); }
+.loading-track i { display: block; width: 100%; height: 100%; border-radius: inherit; transform: scaleX(0); transform-origin: left center; background: linear-gradient(90deg, var(--pink), var(--violet), #37d9ff); box-shadow: 0 0 16px rgba(255,79,163,.7); will-change: transform; }
 #splash.gone { opacity: 0; visibility: hidden; pointer-events: none; }
 @keyframes pulse { 0%, 100% { opacity: 0.45; } 50% { opacity: 1; } }
 
