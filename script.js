@@ -3,8 +3,8 @@ const BASE = 'https://www.mia-entertainment.com.tr';
 
 // Üstteki iki büyük kart
 const FEATURED = [
-  { title: 'Sekizinci Müşteri', desc: 'Psikolojik korku · Mia Original', url: BASE },
-  { title: 'Mia Launcher',      desc: 'Minecraft için tek yerden yönetim', url: BASE },
+  { title: 'Sekizinci Müşteri', desc: 'Psikolojik korku · Mia Original', url: BASE + '/sekizinci-musteri#downloads' },
+  { title: 'Mia Launcher',      desc: 'Minecraft için tek yerden yönetim', url: BASE + '/indir' },
 ];
 
 // Mini oyunlar (bu sitenin içinde açılır)
