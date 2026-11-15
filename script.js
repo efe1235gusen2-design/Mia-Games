@@ -46,16 +46,38 @@ $('links').innerHTML = LINKS.map(l =>
   `<a href="${l.url}" target="_blank" rel="noopener"><span class="ic">${l.icon}</span>${l.label}<span class="arrow">→</span></a>`
 ).join('');
 
-// Giriş ekranı
+// Eğlencelik, tamamen yerel açılış animasyonu: gerçek sunucu bağlantısı yapılmaz.
 function enter() {
   $('splash').classList.add('gone');
   $('page').classList.remove('hidden');
   typeLoop();
 }
-$('splash').addEventListener('click', enter);
-addEventListener('keydown', e => {
-  if ((e.key === 'Enter' || e.key === ' ') && !$('splash').classList.contains('gone')) enter();
-});
+const splashStatus = $('splash-status');
+const progress = $('loading-progress');
+const progressBar = document.querySelector('.loading-track');
+function setProgress(value) {
+  progress.style.width = value + '%';
+  progressBar.setAttribute('aria-valuenow', value);
+}
+setTimeout(() => { setProgress(32); }, 700);
+setTimeout(() => {
+  splashStatus.textContent = 'Hata: Sunucu kahve molasında ☕';
+  splashStatus.classList.add('error');
+  setProgress(46);
+}, 1500);
+setTimeout(() => {
+  splashStatus.textContent = 'Sorun bulundu: Sunucuya kahve veriliyor...';
+  splashStatus.classList.remove('error');
+  splashStatus.classList.add('fixing');
+  setProgress(72);
+}, 2700);
+setTimeout(() => {
+  splashStatus.textContent = 'Tamamdır! Otomatik giriş yapılıyor 🚀';
+  splashStatus.classList.remove('fixing');
+  splashStatus.classList.add('success');
+  setProgress(100);
+}, 4000);
+setTimeout(enter, 5200);
 
 // Daktilo efekti
 let li = 0, ci = 0, del = false, started = false;
@@ -74,12 +96,21 @@ function typeLoop() {
 
 // Fareyle hafif 3D eğilme (dokunmatikte kapalı)
 const card = $('card');
-if (matchMedia('(hover: hover)').matches) {
-  addEventListener('mousemove', e => {
-    const x = e.clientX / innerWidth - 0.5;
-    const y = e.clientY / innerHeight - 0.5;
-    card.style.setProperty('--ry', (x * 8).toFixed(2) + 'deg');
-    card.style.setProperty('--rx', (-y * 8).toFixed(2) + 'deg');
+if (matchMedia('(hover: hover) and (pointer: fine)').matches) {
+  let targetX = 0, targetY = 0, tiltFrame = 0;
+  addEventListener('pointermove', e => {
+    targetX = (e.clientX / innerWidth - 0.5) * 8;
+    targetY = -(e.clientY / innerHeight - 0.5) * 8;
+    if (tiltFrame) return;
+    tiltFrame = requestAnimationFrame(() => {
+      card.style.setProperty('--ry', targetX.toFixed(2) + 'deg');
+      card.style.setProperty('--rx', targetY.toFixed(2) + 'deg');
+      tiltFrame = 0;
+    });
+  });
+  addEventListener('pointerleave', () => {
+    card.style.setProperty('--ry', '0deg');
+    card.style.setProperty('--rx', '0deg');
   });
 }
 

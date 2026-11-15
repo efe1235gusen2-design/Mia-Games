@@ -98,10 +98,12 @@
   function startGame() {
     score = 0; lives = 3; level = 1;
     loadLevel(1); state = 'play'; freeze = 30; msg = 'Hazır!'; hud();
+    window.MiaAudio?.play('start');
   }
 
   function gameOver() {
     state = 'over';
+    window.MiaAudio?.play('gameover');
     if (score > best) {
       best = score;
       try { localStorage.setItem('mia-platform-best', best); } catch (e) {}
@@ -110,12 +112,14 @@
   }
 
   function die() {
+    window.MiaAudio?.play('hit');
     lives--; hud();
     if (lives <= 0) { gameOver(); return; }
     loadLevel(level); freeze = 50; msg = 'Tekrar dene!';
   }
 
   function win() {
+    window.MiaAudio?.play('win');
     score += 100; level++;
     loadLevel(level); freeze = 90; msg = 'Seviye ' + level; hud();
   }
@@ -144,10 +148,24 @@
         if (t === 1) {
           if (p.vy > 0) { p.y = ty * TS - p.h; p.vy = 0; p.onGround = true; }
           else if (p.vy < 0) { p.y = (ty + 1) * TS; p.vy = 0; }
-        } else if (t === 2 && p.vy > 0 && prevBottom <= ty * TS + 0.001) {
-          p.y = ty * TS - p.h; p.vy = 0; p.onGround = true;
         }
       }
+    }
+    // One-way platformlar: yatay örtüşme varsa ve karakter platformun üstünü
+    // bu fizik adımında geçtiyse yakala. Bu süpürme kontrolü yüksek düşüş hızında
+    // platformun içinden geçme sorununu önler.
+    if (p.vy > 0 && p.y + p.h >= prevBottom) {
+      const firstRow = Math.max(0, Math.floor(prevBottom / TS));
+      const lastRow = Math.min(H - 1, Math.floor((p.y + p.h) / TS));
+      let landingY = Infinity;
+      for (let ty = firstRow; ty <= lastRow; ty++) {
+        const top = ty * TS;
+        if (prevBottom > top + 0.001 || p.y + p.h < top) continue;
+        const x0 = Math.max(0, Math.floor(p.x / TS));
+        const x1 = Math.min(L.W - 1, Math.floor((p.x + p.w - 1) / TS));
+        for (let tx = x0; tx <= x1; tx++) if (tile(tx, ty) === 2) landingY = Math.min(landingY, top);
+      }
+      if (landingY < Infinity) { p.y = landingY - p.h; p.vy = 0; p.onGround = true; }
     }
   }
 
@@ -183,7 +201,7 @@
       if (e.x < e.minX) { e.x = e.minX; e.vx = Math.abs(e.vx); }
       if (e.x > e.maxX) { e.x = e.maxX; e.vx = -Math.abs(e.vx); }
       if (overlap(p, e)) {
-        if (p.vy > 0 && pb <= e.y + 10) { e.alive = false; p.vy = -7; score += 50; hud(); }
+        if (p.vy > 0 && pb <= e.y + 10) { e.alive = false; p.vy = -7; score += 50; hud(); window.MiaAudio?.play('stomp'); }
         else { die(); return; }
       }
     }
@@ -192,7 +210,7 @@
     for (const g of L.gems) {
       if (g.got) continue;
       if (Math.abs(g.x - (p.x + p.w / 2)) < 16 && Math.abs(g.y - (p.y + p.h / 2)) < 20) {
-        g.got = true; score += 10; hud();
+        g.got = true; score += 10; hud(); window.MiaAudio?.play('collect');
       }
     }
 
@@ -316,7 +334,7 @@
   };
   function press(k) {
     if (state !== 'play') startGame();
-    if (k === 'jump' && !keys.jump) jumpBuf = 6;
+    if (k === 'jump' && !keys.jump) { jumpBuf = 6; window.MiaAudio?.play('jump'); }
     keys[k] = true;
   }
   function release(k) { keys[k] = false; }

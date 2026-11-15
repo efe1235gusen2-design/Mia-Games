@@ -111,11 +111,13 @@
     score = 0; lives = 3; level = 1;
     newLevel(); resetPositions();
     state = 'play'; freeze = 40; msg = 'Hazır!';
+    window.MiaAudio?.play('start');
     hud();
   }
 
   function gameOver() {
     state = 'over';
+    window.MiaAudio?.play('gameover');
     if (score > best) {
       best = score;
       try { localStorage.setItem('mia-chomp-best', best); } catch (e) {}
@@ -161,12 +163,14 @@
   }
 
   function die() {
+    window.MiaAudio?.play('hit');
     lives--; hud();
     if (lives <= 0) { gameOver(); return; }
     resetPositions(); freeze = 70; msg = 'Yakalandın!';
   }
 
   function nextLevel() {
+    window.MiaAudio?.play('win');
     level++; newLevel(); resetPositions(); freeze = 80; msg = 'Seviye ' + level; hud();
   }
 
@@ -190,6 +194,7 @@
       pellets[ry][rx] = 0; left--;
       score += v === 2 ? 50 : 10;
       if (v === 2) fright = Math.max(150, 360 - level * 25);
+      window.MiaAudio?.play(v === 2 ? 'power' : 'collect');
       hud();
       if (left <= 0) { nextLevel(); return; }
     }
@@ -205,7 +210,7 @@
       const gp = pos(g);
       if (Math.hypot(gp.x - pp.x, gp.y - pp.y) < 0.6) {
         if (fright > 0) {
-          score += 200; hud();
+          score += 200; hud(); window.MiaAudio?.play('stomp');
           g.x = g.tx = g.home.x; g.y = g.ty = g.home.y; g.t = 1; g.dx = g.dy = 0; g.wait = 150;
         } else { die(); return; }
       }
