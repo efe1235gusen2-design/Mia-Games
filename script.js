@@ -240,12 +240,13 @@ if (matchMedia('(hover: hover) and (pointer: fine)').matches) {
 // Parçacıklı arka plan
 const cv = $('bg'), ctx = cv.getContext('2d');
 let w, h, ps = [];
+const LINK = 125; // iki nokta arası çizgi çekme mesafesi
 function resize() {
   const dpr = Math.min(devicePixelRatio || 1, 2);
   w = innerWidth; h = innerHeight;
   cv.width = w * dpr; cv.height = h * dpr;
   ctx.setTransform(dpr, 0, 0, dpr, 0, 0);
-  const n = Math.min(110, Math.round(w * h / 16000));
+  const n = Math.min(w < 760 ? 100 : 280, Math.round(w * h / 8000)); // nokta sayısı: artırmak için 8000'i küçült, 280'i büyüt
   ps = Array.from({ length: n }, () => ({
     x: Math.random() * w, y: Math.random() * h,
     vx: (Math.random() - 0.5) * 0.35, vy: (Math.random() - 0.5) * 0.35,
@@ -276,8 +277,8 @@ function frame() {
     for (let j = i + 1; j < ps.length; j++) {
       const dx = ps[i].x - ps[j].x, dy = ps[i].y - ps[j].y;
       const d = Math.hypot(dx, dy);
-      if (d < 110) {
-        ctx.strokeStyle = `rgba(${ps[i].c},${(1 - d / 110) * 0.28})`;
+      if (d < LINK) {
+        ctx.strokeStyle = `rgba(${ps[i].c},${(1 - d / LINK) * 0.3})`;
         ctx.lineWidth = 1;
         ctx.beginPath(); ctx.moveTo(ps[i].x, ps[i].y); ctx.lineTo(ps[j].x, ps[j].y); ctx.stroke();
       }
