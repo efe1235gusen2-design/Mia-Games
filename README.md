@@ -54,3 +54,11 @@ Rekorlar tarayıcıda (`localStorage`) saklanır.
 - Veriler `localStorage`'da (`mia-stats-v1`) tutulur, yani her ziyaretçi kendi cihazındaki rekorlarını görür. Herkesin birbiriyle yarıştığı ortak bir sıralama için sunucu tarafı (PHP + veritabanı) gerekir.
 
 - **Mia Runner:** Boşluk / ↑ / W zıpla (basılı tut = daha yüksek), ↓ / S eğil. Mobilde ekrana dokun veya alttaki tuşları kullan. Her 500 puanda seviye atlanır, hız artar ve gece/gündüz değişir.
+
+## Alan adı (www ile açılması)
+
+`CNAME` dosyası `www.mia-games.lol` içerir; bu dosya reponun kökünde durmalı. GitHub Pages'te adresin başında `www` kalması için:
+1. Settings → Pages → Custom domain alanına `www.mia-games.lol` yaz (apex `mia-games.lol` yazma) → Save, sonra Enforce HTTPS'i aç.
+2. DNS: `www` için `CNAME` → `KULLANICIADI.github.io`; apex (`@`) için A kayıtları `185.199.108.153`, `185.199.109.153`, `185.199.110.153`, `185.199.111.153`. Böylece `mia-games.lol` yazanlar otomatik `www.mia-games.lol`'a gider.
+3. Cloudflare kullanıyorsan Rules → Redirect Rules içinde `www`'yi apex'e yönlendiren bir kural varsa sil.
+4. Tarayıcı eski yönlendirmeyi (301) önbelleğe alır; test için gizli sekme kullan.
