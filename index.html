@@ -15,12 +15,13 @@
 <body>
   <canvas id="bg" aria-hidden="true"></canvas>
 
-  <button id="splash" type="button" aria-label="Sayfaya gir">
+  <div id="splash" role="status" aria-live="polite" aria-label="Mia Entertainment açılıyor">
     <img class="splash-logo" src="assets/mia-entertainment.png" alt="Mia Entertainment" onerror="this.remove()">
-    <span>girmek için tıkla</span>
-  </button>
+    <span id="splash-status">Sunucuya bağlanılıyor...</span>
+  </div>
 
   <main id="page" class="hidden">
+    <div class="layout">
     <section class="card" id="card">
       <div class="avatar">
         <span class="avatar-fallback">M</span>
@@ -32,13 +33,16 @@
 
       <div class="featured" id="featured"></div>
 
-      <h2 class="section-title">Mini Oyunlar</h2>
-      <div class="featured" id="mini"></div>
-
       <nav class="links" id="links" aria-label="Bağlantılar"></nav>
 
       <footer>© 2026 Mia Entertainment</footer>
     </section>
+    <aside class="games-panel" aria-labelledby="games-title">
+      <div class="games-heading"><span class="games-kicker">MOLA ZAMANI</span><h2 id="games-title">Mini Oyunlar</h2><p>Birini seç, rekorunu kır.</p></div>
+      <div class="game-list" id="mini"></div>
+      <div class="games-note">🎮 Küçük oyunlar, büyük rekabet.</div>
+    </aside>
+    </div>
   </main>
 
   <script src="script.js"></script>
