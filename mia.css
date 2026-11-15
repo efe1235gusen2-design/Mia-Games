@@ -213,9 +213,9 @@ footer { margin-top: 20px; color: var(--muted); font-size: 0.75rem; opacity: 0.7
 /* Rekor tablosu */
 .board { margin-top: 18px; padding-top: 16px; border-top: 1px solid var(--line); text-align: left; }
 .board h3 { margin: 0 0 10px; font-size: 1rem; }
-.board-tabs { display: flex; gap: 6px; margin-bottom: 10px; }
+.board-tabs { display: flex; flex-wrap: wrap; gap: 6px; margin-bottom: 10px; }
 .board-tabs button {
-  flex: 1; padding: 7px 8px; font: inherit; font-size: .78rem; font-weight: 600; cursor: pointer;
+  flex: 1 1 auto; padding: 7px 8px; font: inherit; font-size: .76rem; font-weight: 600; cursor: pointer;
   color: var(--muted); background: rgba(255,255,255,.04); border: 1px solid var(--line); border-radius: 10px;
   transition: color .2s, border-color .2s, background .2s;
 }

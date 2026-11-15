@@ -12,6 +12,7 @@ guns.lol tarzı, tek sayfalık, tamamen statik bir site. Build gerekmez.
 - `assets/favicon.png` – sekme ikonu
 - `oyunlar/chomp/` – **Mia Chomp** (labirent oyunu)
 - `oyunlar/platform/` – **Mia Platform** (yan kaydırmalı platform oyunu)
+- `oyunlar/runner/` – **Mia Runner** (sonsuz koşu: kristallerin üstünden zıpla, dronların altından eğil)
 - `oyunlar/oyun.css` – iki oyun sayfasının ortak stili
 
 ## Düzenleme
@@ -51,3 +52,5 @@ Rekorlar tarayıcıda (`localStorage`) saklanır.
 - `LINKS` içinde: Resmi Web Sitesi (ana sayfa), Sunucu Paketleri (`/sunucu-paketleri`), Reklam Ver (`/sponsorlu-sunucular`), Stüdyodan Haberler (`/haberler`), Discord, Instagram, Destek Merkezi, Hakkında (`/hakkimizda`).
 - `oyunlar/istatistik.js`: iki oyunun ortak istatistik modülü. Ana sayfadaki **Rekor Tablosu** en iyi skor, en yüksek seviye, toplam ölüm, oynanan oyun, toplanan, yenilen düşman ve en iyi 5 skoru gösterir.
 - Veriler `localStorage`'da (`mia-stats-v1`) tutulur, yani her ziyaretçi kendi cihazındaki rekorlarını görür. Herkesin birbiriyle yarıştığı ortak bir sıralama için sunucu tarafı (PHP + veritabanı) gerekir.
+
+- **Mia Runner:** Boşluk / ↑ / W zıpla (basılı tut = daha yüksek), ↓ / S eğil. Mobilde ekrana dokun veya alttaki tuşları kullan. Her 500 puanda seviye atlanır, hız artar ve gece/gündüz değişir.

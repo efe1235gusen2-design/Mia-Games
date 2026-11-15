@@ -11,6 +11,7 @@ const FEATURED = [
 const MINI = [
   { title: '🔮 Mia Chomp',    desc: 'Labirent · peletleri topla, dronlardan kaç', url: 'oyunlar/chomp/' },
   { title: '🎮 Mia Platform', desc: 'Platform · elmasları topla, bayrağa ulaş',   url: 'oyunlar/platform/' },
+  { title: '🏃 Mia Runner',   desc: 'Koşu · engellerden zıpla, dronların altından eğil', url: 'oyunlar/runner/' },
 ];
 
 // Alttaki bağlantı butonları
@@ -305,6 +306,7 @@ frame();
   if (!window.MiaStats) return;
   const tabs = $('board-tabs'), stats = $('board-stats'), top = $('board-top');
   const names = MiaStats.games;
+  const LABELS = { runner: { collected: 'Toplanan elmas', kills: 'Aşılan engel' } };
   let active = Object.keys(names)[0];
   const fmt = n => Number(n).toLocaleString('tr-TR');
   const date = t => new Date(t).toLocaleDateString('tr-TR', { day: 'numeric', month: 'short' });
@@ -313,10 +315,11 @@ frame();
     const all = MiaStats.all(), s = all[active];
     tabs.innerHTML = Object.keys(names).map(k =>
       `<button type="button" role="tab" class="${k === active ? 'on' : ''}" aria-selected="${k === active}" data-g="${k}">${names[k]}</button>`).join('');
+    const L = LABELS[active] || {};
     const rows = [
-      ['🥇', 'En iyi skor', s.best], ['🚀', 'En yüksek seviye', s.bestLevel],
+      ['🥇', 'En iyi skor', s.best], ['🚀', L.level || 'En yüksek seviye', s.bestLevel],
       ['💀', 'Toplam ölüm', s.deaths], ['🎮', 'Oynanan oyun', s.plays],
-      ['💎', 'Toplanan', s.collected], ['⚔️', 'Yenilen düşman', s.kills],
+      ['💎', L.collected || 'Toplanan', s.collected], ['⚔️', L.kills || 'Yenilen düşman', s.kills],
     ];
     stats.innerHTML = rows.map(r => `<div><span>${r[0]} ${r[1]}</span><b>${fmt(r[2])}</b></div>`).join('');
     top.innerHTML = s.top.length

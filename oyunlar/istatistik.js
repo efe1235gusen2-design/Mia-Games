@@ -1,7 +1,7 @@
 /* Mini oyun istatistikleri: bu cihazda/tarayıcıda (localStorage) tutulur. */
 (() => {
   const KEY = 'mia-stats-v1';
-  const GAMES = { chomp: 'Mia Chomp', platform: 'Mia Platform' };
+  const GAMES = { chomp: 'Mia Chomp', platform: 'Mia Platform', runner: 'Mia Runner' };
   const blank = () => ({ plays: 0, deaths: 0, best: 0, bestLevel: 1, collected: 0, kills: 0, total: 0, top: [] });
 
   function load() {
