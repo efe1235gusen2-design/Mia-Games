@@ -16,11 +16,13 @@ const MINI = [
 // Alttaki bağlantı butonları
 const LINKS = [
   { icon: '🌐', label: 'Resmi Web Sitesi',                 url: BASE },
-  { icon: '📦', label: 'Sunucu Paketleri & Mod Paylaşımı', url: BASE },
-  { icon: '📰', label: 'Stüdyodan Haberler',               url: BASE },
+  { icon: '📦', label: 'Sunucu Paketleri & Mod Paylaşımı', url: BASE + '/sunucu-paketleri' },
+  { icon: '📢', label: 'Reklam Ver',                       url: BASE + '/sponsorlu-sunucular' },
+  { icon: '📰', label: 'Stüdyodan Haberler',               url: BASE + '/haberler' },
   { icon: '💬', label: 'Discord',                          url: BASE + '/discord' },
   { icon: '📸', label: 'Instagram',                        url: BASE + '/instagram' },
   { icon: '🛟', label: 'Destek Merkezi',                   url: BASE + '/destek' },
+  { icon: 'ℹ️', label: 'Hakkında',                         url: BASE + '/hakkimizda' },
 ];
 
 // Daktilo efektiyle dönen yazılar
@@ -296,3 +298,37 @@ function frame() {
 addEventListener('resize', resize);
 resize();
 frame();
+
+// ---------- Rekor tablosu (en iyi skor, en çok ölüm, ...) ----------
+(function board() {
+  if (!window.MiaStats) return;
+  const tabs = $('board-tabs'), stats = $('board-stats'), top = $('board-top');
+  const names = MiaStats.games;
+  let active = Object.keys(names)[0];
+  const fmt = n => Number(n).toLocaleString('tr-TR');
+  const date = t => new Date(t).toLocaleDateString('tr-TR', { day: 'numeric', month: 'short' });
+
+  function render() {
+    const all = MiaStats.all(), s = all[active];
+    tabs.innerHTML = Object.keys(names).map(k =>
+      `<button type="button" role="tab" class="${k === active ? 'on' : ''}" aria-selected="${k === active}" data-g="${k}">${names[k]}</button>`).join('');
+    const rows = [
+      ['🥇', 'En iyi skor', s.best], ['🚀', 'En yüksek seviye', s.bestLevel],
+      ['💀', 'Toplam ölüm', s.deaths], ['🎮', 'Oynanan oyun', s.plays],
+      ['💎', 'Toplanan', s.collected], ['⚔️', 'Yenilen düşman', s.kills],
+    ];
+    stats.innerHTML = rows.map(r => `<div><span>${r[0]} ${r[1]}</span><b>${fmt(r[2])}</b></div>`).join('');
+    top.innerHTML = s.top.length
+      ? s.top.map((e, i) => `<li><i>${i + 1}</i><b>${fmt(e.s)}</b><small>Seviye ${e.l} · ${date(e.t)}</small></li>`).join('')
+      : '<li class="empty">Henüz skor yok. İlk oyununu oyna!</li>';
+  }
+  tabs.addEventListener('click', e => {
+    const b = e.target.closest('button[data-g]'); if (!b) return;
+    active = b.dataset.g; render();
+  });
+  render();
+  // Oyundan geri dönünce (geri tuşu/önbellek) güncelle
+  addEventListener('pageshow', render);
+  addEventListener('storage', render);
+  document.addEventListener('visibilitychange', () => { if (!document.hidden) render(); });
+})();

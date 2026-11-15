@@ -215,3 +215,26 @@ footer { margin-top: 20px; color: var(--muted); font-size: 0.75rem; opacity: 0.7
 }
 
 @media (hover: none) { #cursor-glow { display: none; } }
+
+/* Rekor tablosu */
+.board { margin-top: 18px; padding-top: 16px; border-top: 1px solid var(--line); text-align: left; }
+.board h3 { margin: 0 0 10px; font-size: 1rem; }
+.board-tabs { display: flex; gap: 6px; margin-bottom: 10px; }
+.board-tabs button {
+  flex: 1; padding: 7px 8px; font: inherit; font-size: .78rem; font-weight: 600; cursor: pointer;
+  color: var(--muted); background: rgba(255,255,255,.04); border: 1px solid var(--line); border-radius: 10px;
+  transition: color .2s, border-color .2s, background .2s;
+}
+.board-tabs button:hover { border-color: var(--violet); }
+.board-tabs button.on { color: var(--text); border-color: var(--pink); background: rgba(255,79,163,.12); }
+.board-stats { display: grid; grid-template-columns: 1fr 1fr; gap: 6px; }
+.board-stats div { display: flex; flex-direction: column; gap: 2px; padding: 8px 10px; border-radius: 10px; background: rgba(255,255,255,.04); border: 1px solid var(--line); }
+.board-stats span { color: var(--muted); font-size: .68rem; }
+.board-stats b { font-size: 1.05rem; font-variant-numeric: tabular-nums; }
+.board-top { list-style: none; margin: 10px 0 0; padding: 0; display: grid; gap: 5px; }
+.board-top li { display: flex; align-items: center; gap: 10px; padding: 6px 10px; border-radius: 9px; background: rgba(255,255,255,.03); font-size: .82rem; }
+.board-top li i { font-style: normal; width: 18px; color: var(--pink); font-weight: 800; }
+.board-top li b { font-variant-numeric: tabular-nums; }
+.board-top li small { margin-left: auto; color: var(--muted); font-size: .7rem; }
+.board-top li.empty { color: var(--muted); justify-content: center; }
+.board-foot { margin: 8px 0 0; color: var(--muted); font-size: .66rem; opacity: .7; }

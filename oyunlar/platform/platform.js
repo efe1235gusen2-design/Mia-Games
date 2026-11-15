@@ -98,11 +98,13 @@
   function startGame() {
     score = 0; lives = 3; level = 1;
     loadLevel(1); state = 'play'; freeze = 30; msg = 'Hazır!'; hud();
+    window.MiaStats?.start('platform');
     window.MiaAudio?.play('start');
   }
 
   function gameOver() {
     state = 'over';
+    window.MiaStats?.over('platform', score, level);
     window.MiaAudio?.play('gameover');
     if (score > best) {
       best = score;
@@ -113,6 +115,7 @@
 
   function die() {
     window.MiaAudio?.play('hit');
+    window.MiaStats?.death('platform');
     lives--; hud();
     if (lives <= 0) { gameOver(); return; }
     loadLevel(level); freeze = 50; msg = 'Tekrar dene!';
@@ -120,7 +123,7 @@
 
   function win() {
     window.MiaAudio?.play('win');
-    score += 100; level++;
+    score += 100; level++; window.MiaStats?.level('platform', level);
     loadLevel(level); freeze = 90; msg = 'Seviye ' + level; hud();
   }
 
@@ -201,7 +204,7 @@
       if (e.x < e.minX) { e.x = e.minX; e.vx = Math.abs(e.vx); }
       if (e.x > e.maxX) { e.x = e.maxX; e.vx = -Math.abs(e.vx); }
       if (overlap(p, e)) {
-        if (p.vy > 0 && pb <= e.y + 10) { e.alive = false; p.vy = -7; score += 50; hud(); window.MiaAudio?.play('stomp'); }
+        if (p.vy > 0 && pb <= e.y + 10) { e.alive = false; p.vy = -7; score += 50; hud(); window.MiaStats?.kill('platform'); window.MiaAudio?.play('stomp'); }
         else { die(); return; }
       }
     }
@@ -210,7 +213,7 @@
     for (const g of L.gems) {
       if (g.got) continue;
       if (Math.abs(g.x - (p.x + p.w / 2)) < 16 && Math.abs(g.y - (p.y + p.h / 2)) < 20) {
-        g.got = true; score += 10; hud(); window.MiaAudio?.play('collect');
+        g.got = true; score += 10; hud(); window.MiaStats?.collect('platform'); window.MiaAudio?.play('collect');
       }
     }
 

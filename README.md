@@ -45,3 +45,9 @@ Rekorlar tarayıcıda (`localStorage`) saklanır.
 - Sesler Web Audio ile üretilir (harici dosya yok): bağlanma, tik, hata, düzelme, başarı, açılış, hover ve tık sesleri. Sağ üstteki 🔊 düğmesi sesi açar/kapatır (oyunlarla ortak ayar).
 - Tarayıcılar sayfaya ilk dokunuştan/tuşa basıştan önce sesi engeller. Bu yüzden sayfa ziyaretçi hiçbir şeye basmasa da açılır, ses ise ilk tuş/dokunuş/tıkla devreye girer.
 - Fare takibi: arka plandaki noktalar imlece çekilir ve çizgiyle bağlanır, imleci yumuşakça izleyen ışık halkası, kartın 3D eğilmesi, kart/butonlarda imleci izleyen parlama.
+
+## Bağlantılar ve rekor tablosu
+
+- `LINKS` içinde: Resmi Web Sitesi (ana sayfa), Sunucu Paketleri (`/sunucu-paketleri`), Reklam Ver (`/sponsorlu-sunucular`), Stüdyodan Haberler (`/haberler`), Discord, Instagram, Destek Merkezi, Hakkında (`/hakkimizda`).
+- `oyunlar/istatistik.js`: iki oyunun ortak istatistik modülü. Ana sayfadaki **Rekor Tablosu** en iyi skor, en yüksek seviye, toplam ölüm, oynanan oyun, toplanan, yenilen düşman ve en iyi 5 skoru gösterir.
+- Veriler `localStorage`'da (`mia-stats-v1`) tutulur, yani her ziyaretçi kendi cihazındaki rekorlarını görür. Herkesin birbiriyle yarıştığı ortak bir sıralama için sunucu tarafı (PHP + veritabanı) gerekir.
