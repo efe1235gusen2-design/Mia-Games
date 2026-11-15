@@ -7,14 +7,20 @@ const FEATURED = [
   { title: 'Mia Launcher',      desc: 'Minecraft için tek yerden yönetim', url: BASE },
 ];
 
+// Mini oyunlar (bu sitenin içinde açılır)
+const MINI = [
+  { title: '🔮 Mia Chomp',    desc: 'Labirent · peletleri topla, dronlardan kaç', url: 'oyunlar/chomp/' },
+  { title: '🎮 Mia Platform', desc: 'Platform · elmasları topla, bayrağa ulaş',   url: 'oyunlar/platform/' },
+];
+
 // Alttaki bağlantı butonları
 const LINKS = [
-  { icon: '🌐', label: 'Resmi Web Sitesi',            url: BASE },
+  { icon: '🌐', label: 'Resmi Web Sitesi',                 url: BASE },
   { icon: '📦', label: 'Sunucu Paketleri & Mod Paylaşımı', url: BASE },
-  { icon: '📰', label: 'Stüdyodan Haberler',          url: BASE },
-  { icon: '💬', label: 'Discord',                     url: BASE + '/discord' },
-  { icon: '📸', label: 'Instagram',                   url: BASE + '/instagram' },
-  { icon: '🛟', label: 'Destek Merkezi',              url: BASE + '/destek' },
+  { icon: '📰', label: 'Stüdyodan Haberler',               url: BASE },
+  { icon: '💬', label: 'Discord',                          url: BASE + '/discord' },
+  { icon: '📸', label: 'Instagram',                        url: BASE + '/instagram' },
+  { icon: '🛟', label: 'Destek Merkezi',                   url: BASE + '/destek' },
 ];
 
 // Daktilo efektiyle dönen yazılar
@@ -30,6 +36,10 @@ const $ = id => document.getElementById(id);
 // Kartları ve bağlantıları oluştur
 $('featured').innerHTML = FEATURED.map(f =>
   `<a class="feat" href="${f.url}" target="_blank" rel="noopener"><b>${f.title}</b><small>${f.desc}</small></a>`
+).join('');
+
+$('mini').innerHTML = MINI.map(f =>
+  `<a class="feat" href="${f.url}"><b>${f.title}</b><small>${f.desc}</small></a>`
 ).join('');
 
 $('links').innerHTML = LINKS.map(l =>

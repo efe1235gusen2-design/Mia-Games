@@ -1,0 +1,30 @@
+<!doctype html>
+<html lang="tr">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=no">
+  <title>Mia Platform · Mia Entertainment</title>
+  <link rel="icon" type="image/png" href="../../assets/favicon.png">
+  <link rel="stylesheet" href="../../mia.css">
+  <link rel="stylesheet" href="../oyun.css">
+</head>
+<body class="game">
+  <a class="back" href="../../">← Mia</a>
+  <div class="game-wrap">
+    <div class="hud">
+      <span id="score">Puan: 0</span>
+      <span id="lives">❤❤❤</span>
+      <span id="level">Seviye 1</span>
+      <span id="best">Rekor: 0</span>
+    </div>
+    <canvas id="g" width="480" height="320"></canvas>
+    <div class="pad" id="pad">
+      <button data-k="left">←</button>
+      <button data-k="right">→</button>
+      <button data-k="jump" class="wide">Zıpla</button>
+    </div>
+    <p class="hint">← → / A D ile yürü, Boşluk / ↑ / W ile zıpla. Elmasları topla, düşmanların üstüne zıpla, bayrağa ulaş!</p>
+  </div>
+  <script src="platform.js"></script>
+</body>
+</html>

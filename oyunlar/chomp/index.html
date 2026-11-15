@@ -1,0 +1,31 @@
+<!doctype html>
+<html lang="tr">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=no">
+  <title>Mia Chomp · Mia Entertainment</title>
+  <link rel="icon" type="image/png" href="../../assets/favicon.png">
+  <link rel="stylesheet" href="../../mia.css">
+  <link rel="stylesheet" href="../oyun.css">
+</head>
+<body class="game">
+  <a class="back" href="../../">← Mia</a>
+  <div class="game-wrap">
+    <div class="hud">
+      <span id="score">Puan: 0</span>
+      <span id="lives">❤❤❤</span>
+      <span id="level">Seviye 1</span>
+      <span id="best">Rekor: 0</span>
+    </div>
+    <canvas id="g" width="408" height="408"></canvas>
+    <div class="pad" id="pad">
+      <button data-d="left">←</button>
+      <button data-d="up">↑</button>
+      <button data-d="down">↓</button>
+      <button data-d="right">→</button>
+    </div>
+    <p class="hint">Ok tuşları / WASD veya parmağını kaydırarak yönlendir. Peletleri topla, büyük pelet dronları korkutur!</p>
+  </div>
+  <script src="chomp.js"></script>
+</body>
+</html>

@@ -8,12 +8,15 @@
   <meta property="og:title" content="Mia Entertainment">
   <meta property="og:description" content="Teknolojiyle yeni fikirler hayata geçir.">
   <meta name="theme-color" content="#0a0612">
+  <link rel="icon" type="image/png" href="assets/favicon.png">
+  <link rel="apple-touch-icon" href="assets/favicon.png">
   <link rel="stylesheet" href="mia.css">
 </head>
 <body>
   <canvas id="bg" aria-hidden="true"></canvas>
 
   <button id="splash" type="button" aria-label="Sayfaya gir">
+    <img class="splash-logo" src="assets/mia-entertainment.png" alt="Mia Entertainment" onerror="this.remove()">
     <span>girmek için tıkla</span>
   </button>
 
@@ -21,13 +24,17 @@
     <section class="card" id="card">
       <div class="avatar">
         <span class="avatar-fallback">M</span>
-        <img src="assets/mia-logo.png" alt="Mia Entertainment logosu" onerror="this.remove()">
+        <img src="assets/mia-logo.png" alt="Mia logosu" onerror="this.remove()">
       </div>
 
       <h1>Mia Entertainment</h1>
       <p class="type"><span id="typed"></span><i class="caret"></i></p>
 
       <div class="featured" id="featured"></div>
+
+      <h2 class="section-title">Mini Oyunlar</h2>
+      <div class="featured" id="mini"></div>
+
       <nav class="links" id="links" aria-label="Bağlantılar"></nav>
 
       <footer>© 2026 Mia Entertainment</footer>

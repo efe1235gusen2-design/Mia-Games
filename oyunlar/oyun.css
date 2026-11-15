@@ -1,0 +1,47 @@
+/* Mini oyun sayfaları için ortak stil (mia.css ile birlikte yüklenir) */
+body.game {
+  min-height: 100vh;
+  display: flex; flex-direction: column; align-items: center; justify-content: center;
+  padding: 52px 12px 20px;
+}
+
+.back {
+  position: fixed; top: 12px; left: 14px; z-index: 5;
+  font-size: 0.9rem; color: var(--pink); text-decoration: none;
+}
+.back:hover { text-decoration: underline; }
+
+.game-wrap { display: flex; flex-direction: column; align-items: center; gap: 10px; width: 100%; }
+
+.hud {
+  width: min(94vw, 480px);
+  display: flex; justify-content: space-between; gap: 8px;
+  font-size: 0.9rem; color: var(--text);
+}
+
+#g {
+  display: block;
+  width: auto; height: auto;
+  max-width: 94vw; max-height: 64vh;
+  border: 1px solid var(--line);
+  border-radius: 14px;
+  background: rgba(5, 8, 25, 0.6);
+  box-shadow: 0 10px 50px rgba(139, 92, 246, 0.22);
+  touch-action: none;
+}
+
+.hint { margin: 0; max-width: 94vw; font-size: 0.8rem; color: var(--muted); text-align: center; }
+
+.pad {
+  display: none; gap: 8px; justify-content: center;
+  user-select: none; -webkit-user-select: none; touch-action: none;
+}
+.pad button {
+  width: 66px; height: 56px; font-size: 1.4rem;
+  border-radius: 14px; border: 1px solid var(--line);
+  background: rgba(255, 255, 255, 0.08); color: var(--text);
+  touch-action: none;
+}
+.pad button.wide { width: 110px; }
+.pad button:active { background: rgba(255, 79, 163, 0.35); }
+@media (hover: none), (max-width: 700px) { .pad { display: flex; } }
