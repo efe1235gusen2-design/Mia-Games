@@ -1,0 +1,39 @@
+<!doctype html>
+<html lang="tr">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Mia Entertainment</title>
+  <meta name="description" content="Bağımsız teknoloji ve oyun geliştirme. Teknoloji, yazılım ve oyun.">
+  <meta property="og:title" content="Mia Entertainment">
+  <meta property="og:description" content="Teknolojiyle yeni fikirler hayata geçir.">
+  <meta name="theme-color" content="#0a0612">
+  <link rel="stylesheet" href="style.css">
+</head>
+<body>
+  <canvas id="bg" aria-hidden="true"></canvas>
+
+  <button id="splash" type="button" aria-label="Sayfaya gir">
+    <span>girmek için tıkla</span>
+  </button>
+
+  <main id="page" class="hidden">
+    <section class="card" id="card">
+      <div class="avatar">
+        <span class="avatar-fallback">M</span>
+        <img src="assets/mia-logo.png" alt="Mia Entertainment logosu" onerror="this.remove()">
+      </div>
+
+      <h1>Mia Entertainment</h1>
+      <p class="type"><span id="typed"></span><i class="caret"></i></p>
+
+      <div class="featured" id="featured"></div>
+      <nav class="links" id="links" aria-label="Bağlantılar"></nav>
+
+      <footer>© 2026 Mia Entertainment</footer>
+    </section>
+  </main>
+
+  <script src="script.js"></script>
+</body>
+</html>
