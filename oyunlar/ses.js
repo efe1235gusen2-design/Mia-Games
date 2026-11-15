@@ -12,7 +12,7 @@
     toggle.setAttribute('aria-pressed', String(enabled));
   }
 
-  function tone(freq, duration, delay = 0, type = 'sine', volume = 0.09) {
+  function tone(freq, duration, delay = 0, type = 'sine', volume = 0.045) {
     if (!enabled || !AudioCtx) return;
     try {
       context ||= new AudioCtx();
@@ -31,11 +31,11 @@
 
   const patterns = {
     start: () => { tone(523, .12); tone(659, .15, .1); },
-    collect: () => tone(880, .11, 0, 'square', .075),
-    jump: () => { tone(330, .12, 0, 'triangle', .08); tone(500, .12, .05, 'triangle', .08); },
-    hit: () => { tone(220, .18, 0, 'sawtooth', .075); tone(140, .22, .12, 'sawtooth', .065); },
+    collect: () => tone(880, .075, 0, 'square', .025),
+    jump: () => { tone(330, .09, 0, 'triangle'); tone(500, .1, .05, 'triangle'); },
+    hit: () => { tone(220, .16, 0, 'sawtooth', .035); tone(140, .2, .12, 'sawtooth', .03); },
     gameover: () => { tone(392, .16); tone(330, .18, .16); tone(262, .28, .34); },
-    stomp: () => tone(180, .1, 0, 'square', .075),
+    stomp: () => tone(180, .08, 0, 'square', .035),
     power: () => { tone(660, .12); tone(880, .12, .09); tone(1100, .18, .18); },
     win: () => { tone(523, .14); tone(659, .14, .12); tone(784, .22, .24); },
   };
@@ -47,14 +47,7 @@
     if (enabled) patterns.start();
   });
   syncButton();
-  window.MiaAudio = {
-    play: name => patterns[name]?.(),
-    unlock: () => {
-      if (!AudioCtx) return;
-      try { context ||= new AudioCtx(); if (context.state === 'suspended') context.resume(); } catch (e) {}
-    },
-  };
-  addEventListener('pointerdown', () => window.MiaAudio.unlock(), { passive: true });
+  window.MiaAudio = { play: name => patterns[name]?.() };
 
   // Oyun içindeyken tarayıcı kısayolları sayfadan çıkarmasın/oyunu bölmesin.
   addEventListener('keydown', e => {

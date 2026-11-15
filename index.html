@@ -15,10 +15,17 @@
 <body>
   <canvas id="bg" aria-hidden="true"></canvas>
 
+  <div id="cursor-glow" aria-hidden="true"></div>
+  <button id="sound-btn" type="button" aria-pressed="true" aria-label="Sesi aç/kapat">🔊</button>
+
   <div id="splash" role="status" aria-live="polite" aria-label="Mia Entertainment açılıyor">
-    <div class="loading-dock">
-      <span id="splash-status">Sunucuya bağlanılıyor...</span>
-      <div class="loading-track" role="progressbar" aria-label="Bağlantı durumu" aria-valuemin="0" aria-valuemax="100" aria-valuenow="0"><i id="loading-progress"></i></div>
+    <div class="splash-center">
+      <img class="splash-logo" src="assets/mia-entertainment.png" alt="Mia Entertainment" onerror="this.remove()">
+      <div class="loading-dock">
+        <span id="splash-status">Sunucuya bağlanılıyor...</span>
+        <div class="loading-track" role="progressbar" aria-label="Bağlantı durumu" aria-valuemin="0" aria-valuemax="100" aria-valuenow="0"><i id="loading-progress"></i></div>
+        <small id="splash-pct">0%</small>
+      </div>
     </div>
   </div>
 
